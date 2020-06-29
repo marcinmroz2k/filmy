@@ -18,7 +18,7 @@ class MovieMiddleware
 
         $request->validate([
             'tytul'                         => 'required|unique:movies|max:64',
-            'gatunek'                       => 'required|unique:movies|max:32',
+            'gatunek'                       => 'required|max:32',
             'opis'                          => 'required|max:5000',
             'kraj_produkcji'                => 'required|max:64',
             'okladka'                       => 'required|unique:movies',

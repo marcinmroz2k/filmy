@@ -14,11 +14,15 @@ class MoviesController extends Controller
     	$this->middleware('MovieMiddleware')->only('store');
 	}
 
+    //Widok - wszystkie filmy
+
     public function get()
     {
     	$movies = DB::table('movies')->get();
     	return view('movies')->with(['movies' => $movies]);
     }
+
+    //Dodanie nowego filmu
 
     public function store(Request $request)
     {
@@ -49,22 +53,29 @@ class MoviesController extends Controller
         }
     }
 
+    //Usuwanie filmu
+
     public function delete($id)
     {
     	$movie = DB::table('movies')->where('id' , '=' , $id)->first();
         $okladka = $movie->okladka;
+        $tytul = $movie->tytul;
 
         unlink(public_path('okladki').'/'.$okladka);
 
         $movie = DB::table('movies')->where('id' , '=' , $id)->delete();
 
-    	return redirect()->back()->with('message-success' , "Film o id = $id został usunięty pomyślnie.");
+    	return redirect()->back()->with('message-success' , 'Film "'."$tytul".'" został usunięty pomyślnie.');
     }
+
+    //Widok edycji filmu
 
     public function edit($id)
     {
     	return view('edit')->with(['id' => $id]);
     }
+
+    //Podgląd filmu
 
     public function preview($id)
     {
@@ -72,6 +83,8 @@ class MoviesController extends Controller
 
         return view('movie-preview')->with(['movie' => $movie]);
     }
+
+    //Edycja filmu
 
     public function update($id, Request $request)
     {
@@ -123,4 +136,5 @@ class MoviesController extends Controller
             return redirect('movies');
 
     }
+    
 }

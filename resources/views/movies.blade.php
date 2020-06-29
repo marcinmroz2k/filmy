@@ -4,6 +4,11 @@
 
 <div class="container pt-4">
 	<h2 class="text-center">Wszystkie filmy:</h2>
+	@if(session()->has('message-success'))
+		<div class="alert alert-success">
+        	{{ session()->get('message-success') }}
+    	</div>
+    @endif
 	<table class="table mt-4">
 	  <thead>
 	    <tr>
@@ -26,7 +31,7 @@
       					<form action="delete/movies/{{ $movie->id }}" method="post">
       						@csrf
                 			{{ method_field('delete') }}
-                			<button class="btn btn-default text-primary" onclick="return confirm('Na pewno chcesz usunąc ten film?')" type="submit">Usuń</button>
+                			<button class="btn btn-default text-primary" onclick="return confirm('Na pewno chcesz usunąć ten film?')" type="submit">Usuń</button>
             			</form>
 	      			</div>
 	      		</td>

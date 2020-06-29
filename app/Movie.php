@@ -23,5 +23,4 @@ class Movie extends Model
   		return array('tytul' => $array['tytul']);
 	}
 
-
 }
